@@ -1,0 +1,91 @@
+#include <iostream>
+#include <cassert>
+
+// Abstract base class
+class Shape {
+public:
+    virtual double getArea() = 0;
+    virtual double getPerimeter() = 0;
+};
+
+// Circle class
+class Circle : public Shape {
+private:
+    double radius;
+
+public:
+    Circle(double r) {
+        radius = r;
+    }
+
+    double getArea() {
+        return 3.14159 * radius * radius;
+    }
+
+    double getPerimeter() {
+        return 2 * 3.14159 * radius;
+    }
+};
+
+// Rectangle class
+class Rectangle : public Shape {
+private:
+    double width;
+    double height;
+
+public:
+    Rectangle(double w, double h) {
+        width = w;
+        height = h;
+    }
+
+    double getArea() {
+        return width * height;
+    }
+
+    double getPerimeter() {
+        return 2 * (width + height);
+    }
+};
+
+// RightTriangle class
+class RightTriangle : public Shape {
+private:
+    double base;
+    double height;
+
+public:
+    RightTriangle(double b, double h) {
+        base = b;
+        height = h;
+    }
+
+    double getArea() {
+        return 0.5 * base * height;
+    }
+
+    double getPerimeter() {
+        double hypotenuse = sqrt(base * base + height * height);
+        return base + height + hypotenuse;
+    }
+};
+
+int main() {
+    // Circle with radius 1
+    Circle c(1.0);
+    assert(c.getArea() > 3.14 && c.getArea() < 3.15);
+    assert(c.getPerimeter() > 6.28 && c.getPerimeter() < 6.29);
+
+    // Rectangle 3 x 4
+    Rectangle r(3.0, 4.0);
+    assert(r.getArea() == 12.0);
+    assert(r.getPerimeter() == 14.0);
+
+    // Right triangle with base=3, height=4 (hypotenuse = 5)
+    RightTriangle t(3.0, 4.0);
+    assert(t.getArea() == 6.0);
+    assert(t.getPerimeter() > 11.99 && t.getPerimeter() < 12.01);
+
+    std::cout << "All tests passed.\n";
+    return 0;
+}
